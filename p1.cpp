@@ -23,7 +23,7 @@ it goes with the boolean function */
 #include <string> 
 #include <iomanip> 
 #include <fstream> 
-
+#include <vector> 
 
 using namespace std; 
 
@@ -92,8 +92,13 @@ return 0;
 void menu(ofstream &outputFile, fstream &file) 
 {	// Declare Variables
 	char choice(0); // used for switch statement
-	int best(0); // best score 
-	int lowest; // lowest score aka best score  
+	// int best(0); // best score 
+	// int lowest; // lowest score aka best score  
+	
+	// 1-D array and vectors
+	short NUM_MOVES = 5; 
+	vector<short>moves(NUM_MOVES); 
+
 	// introduction 
 	cout << "Welcome to Chopsticks!" << endl << endl;
 
@@ -119,7 +124,8 @@ void menu(ofstream &outputFile, fstream &file)
 			}
 
 			case '3': {
-				while (!file.eof())
+				// while (!file.eof())
+				for (int i=0; i<NUM_MOVES; i++)
 				{
 					file >> best;
 					if (best < lowest)
