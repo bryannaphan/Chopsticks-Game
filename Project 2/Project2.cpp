@@ -1,15 +1,3 @@
-
-// ****
-/* FIX BOOLEAN FUNCTION 
-AND FIX "do you want to play again?"
-it goes with the boolean function */ 
-
-// if user picks Y --> game automatically restarts
-// if user picks N --> it goes to the menu again 
-
-// also fix files and "best score" 
-// it keeps displaying 0 so its not reading file?? 
-
 /* 
  * File:   proj.cpp
  * Author: Bryanna Phan
@@ -23,7 +11,7 @@ it goes with the boolean function */
 #include <string> 
 #include <iomanip> 
 #include <fstream> 
-
+#include <vector> 
 
 using namespace std; 
 
@@ -92,8 +80,13 @@ return 0;
 void menu(ofstream &outputFile, fstream &file) 
 {	// Declare Variables
 	char choice(0); // used for switch statement
-	int best(0); // best score 
-	int lowest; // lowest score aka best score  
+	// int best(0); // best score 
+	// int lowest; // lowest score aka best score  
+	
+	// 1-D array and vectors
+	short best = 5, lowest;
+	vector<short>moves(best); 
+
 	// introduction 
 	cout << "Welcome to Chopsticks!" << endl << endl;
 
@@ -101,8 +94,8 @@ void menu(ofstream &outputFile, fstream &file)
 	{
 		cout << "1. Start Game" << endl;
 		cout << "2. How To Play" << endl;
-		cout << "3. Display Best Score" << endl;  
-		cout << "4. Quit" << endl; 
+		// cout << "3. Display Best Score" << endl;  
+		cout << "3. Quit" << endl; 
 		cout << "Pick your option: "; 
 		cin >> choice;; 
 
@@ -118,20 +111,23 @@ void menu(ofstream &outputFile, fstream &file)
 				break; 
 			}
 
-			case '3': {
+			/* case '3': {
 				while (!file.eof())
 				{
-					file >> best;
-					if (best < lowest)
-						lowest = best; 
-					//else if (file.eof())
-						//cout << "End of file." << endl; 
-				}
-				cout << "Your best score is: " << lowest << endl; 
+					for (int i=0; i<moves.size(); i++)
+					{
+						file >> moves[best];
+						if (best < lowest)
+							moves[best] = lowest; 
+						//else if (file.eof())
+							//cout << "End of file." << endl; 
+					}
+				} 
+				cout << "Your best score is: " << moves[best] << endl; 
 				break;
-			}
+			} */ 
 
-			case '4': {
+			case '3': {
 				cout << "The game has ended." << endl;
 				return; 
 				break; 
@@ -221,8 +217,8 @@ void game(ofstream &outputFile, fstream &file) { // function for the game
 			cout << "Do you want to play again? (y/n): ";
 			cin >> again;  
 			if (isAgain(again))
-				menu(outputFile, file); 
-			else if (!isAgain(again))
+				game(outputFile, file);
+			else if (isAgain(again))
 				return; break;
 		}
 		else if (fingers[1][0] >= 5 && fingers[1][1] >= 5)
@@ -233,8 +229,8 @@ void game(ofstream &outputFile, fstream &file) { // function for the game
 			cout << "Do you want to play again? (y/n): ";
 			cin >> again;  			
 			if (isAgain(again))
-				menu(outputFile, file); 
-			else if (!isAgain(again))
+				game(outputFile, file);
+			else if (isAgain(again))
 				return; break; 
 		}
 
@@ -320,7 +316,7 @@ void game(ofstream &outputFile, fstream &file) { // function for the game
 			cin >> again;  
 			if (isAgain(again))
 				menu(outputFile, file);
-			else if (!isAgain(again))
+			else if (isAgain(again))
 				return; break; 
 		}
 		else if (fingers[1][0] >= 5 && fingers[1][1] >= 5)
@@ -331,8 +327,8 @@ void game(ofstream &outputFile, fstream &file) { // function for the game
 			cout << "Do you want to play again? (y/n): ";
 			cin >> again;  			
 			if (isAgain(again))
-				menu(outputFile, file); 
-			else if (!isAgain(again))
+				game(outputFile, file);
+			else if (isAgain(again))
 				return; break; 
 		}		
 
